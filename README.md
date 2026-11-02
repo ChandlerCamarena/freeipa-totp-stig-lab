@@ -196,7 +196,7 @@ Remaining deviations, justified:
 
 - **`package_nfs-utils_removed` and `package_gssproxy_removed`:** `ipa-client` requires `nfs-utils`, which requires `gssproxy`. `dnf remove --assumeno gssproxy nfs-utils` shows `ipa-client` removed as a dependent package. The gssproxy service is disabled, autofs is masked, and rpcbind is disabled.
 
-The 9 pre-existing failures are documented in the STIG hardening lab and are unchanged by this lab.
+The 9 pre-existing failures are documented in the [STIG hardening lab](https://github.com/ChandlerCamarena/rhel9-stig-hardening-lab) and are unchanged by this lab.
 
 ## MFA login on the hardened client
 
