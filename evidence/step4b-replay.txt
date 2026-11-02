@@ -1,0 +1,35 @@
+Script started on 2026-11-01 21:46:06-07:00 [TERM="xterm-kitty" TTY="/dev/pts/0" COLUMNS="113" LINES="61"]
+?2004h[chandler@ipa ~]$ 7mkinit -T FILE:/tmp/armor.ccache -c FILE:/tmp/mfa.ccache mfauser27mCCCCCCCCCCCCCCCCCCkinit -T FILE:/tmp/armor.ccache -c FILE:/tmp/mfa.ccache mfauser
+?2004lEnter OTP Token Value:
+?2004h[chandler@ipa ~]$ 7mkinit -T FILE:/tmp/armor.ccache -c FILE:/tmp/mfa2.ccache mfauser27mCCCCCCCCCCCCCCCCCCkinit -T FILE:/tmp/armor.ccache -c FILE:/tmp/mfa2.ccache mfauser
+?2004lEnter OTP Token Value:
+kinit: Preauthentication failed while getting initial credentials
+?2004h[chandler@ipa ~]$ 7mkinit -T FILE:/tmp/armor.ccache -c FILE:/tmp/mfa2.ccache mfauser27mCCCCCCCCCCCCCCCCCCkinit -T FILE:/tmp/armor.ccache -c FILE:/tmp/mfa2.ccache mfauser
+?2004lEnter OTP Token Value:
+kinit: Preauthentication failed while getting initial credentials
+?2004h[chandler@ipa ~]$ 7mklist -C -c FILE:/tmp/mfa.ccache | grep pa_type27m
+7mklist -c FILE:/tmp/mfa2.ccache27m
+7msudo journalctl -u 'ipa-otpd@*' --since "-3min" --no-pager | grep -E "bind end|response sent"27m
+7mipa user-status mfauser | grep -i "failed logins"27m
+7mexit27mAAAACCCCCCCCCCCCCCklist -C -c FILE:/tmp/mfa.ccache | grep pa_type
+klist -c FILE:/tmp/mfa2.ccache
+sudo journalctl -u 'ipa-otpd@*' --since "-3min" --no-pager | grep -E "bind end|response sent"
+ipa user-status mfauser | grep -i "failed logins"
+exit
+?2004lconfig: 01;31mKpa_typemK(krbtgt/LAB.TEST@LAB.TEST) = 141
+Ticket cache: FILE:/tmp/mfa2.ccache
+Default principal: mfauser@LAB.TEST
+
+Valid starting	     Expires		  Service principal
+11/01/2026 21:42:21  11/02/2026 20:44:17  krbtgt/LAB.TEST@LAB.TEST
+[sudo] password for chandler:
+Nov 01 21:46:33 ipa.lab.test ipa-otpd[2142]: mfauser@LAB.TEST: 01;31mKbind endmK: success
+Nov 01 21:46:33 ipa.lab.test ipa-otpd[2142]: mfauser@LAB.TEST: 01;31mKresponse sentmK: Access-Accept
+Nov 01 21:46:46 ipa.lab.test ipa-otpd[2139]: mfauser@LAB.TEST: 01;31mKbind endmK: Invalid credentials
+Nov 01 21:46:46 ipa.lab.test ipa-otpd[2139]: mfauser@LAB.TEST: 01;31mKresponse sentmK: Access-Reject
+Nov 01 21:47:01 ipa.lab.test ipa-otpd[2139]: mfauser@LAB.TEST: 01;31mKbind endmK: Invalid credentials
+Nov 01 21:47:01 ipa.lab.test ipa-otpd[2139]: mfauser@LAB.TEST: 01;31mKresponse sentmK: Access-Reject
+  01;31mKFailed loginsmK: 2
+exit
+
+Script done on 2026-11-01 21:47:11-07:00 [COMMAND_EXIT_CODE="0"]

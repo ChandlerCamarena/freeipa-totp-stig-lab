@@ -1,0 +1,19 @@
+Nov  1 23:27:02 rhel9-stig sshd-session[1270]: Postponed keyboard-interactive for mfauser from 192.168.122.1 port 54320 ssh2 [preauth]
+Nov  1 23:27:16 rhel9-stig sshd-session[1270]: Postponed keyboard-interactive/pam for mfauser from 192.168.122.1 port 54320 ssh2 [preauth]
+Nov  1 23:27:35 rhel9-stig sshd-session[1272]: pam_sss(sshd:auth): authentication success; logname= uid=0 euid=0 tty=ssh ruser= rhost=192.168.122.1 user=mfauser
+Nov  1 23:27:37 rhel9-stig sshd-session[1270]: Postponed keyboard-interactive/pam for mfauser from 192.168.122.1 port 54320 ssh2 [preauth]
+Nov  1 23:27:37 rhel9-stig sshd-session[1270]: Accepted keyboard-interactive/pam for mfauser from 192.168.122.1 port 54320 ssh2
+Nov  1 23:27:37 rhel9-stig systemd[1285]: pam_unix(systemd-user:session): session opened for user mfauser(uid=1312600003) by mfauser(uid=0)
+Nov  1 23:27:37 rhel9-stig sshd-session[1270]: pam_unix(sshd:session): session opened for user mfauser(uid=1312600003) by mfauser(uid=0)
+Nov  1 23:27:37 rhel9-stig sshd-session[1300]: Starting session: shell on pts/0 for mfauser from 192.168.122.1 port 54320 id 0
+Nov  1 23:27:37 rhel9-stig systemd-logind[1161]: New session 1 of user mfauser.
+Nov  1 23:27:47 rhel9-stig sshd-session[1300]: Disconnected from user mfauser 192.168.122.1 port 54320
+Nov  1 23:27:48 rhel9-stig sshd-session[1270]: pam_unix(sshd:session): session closed for user mfauser
+Nov  1 23:28:00 rhel9-stig sshd-session[1335]: Postponed keyboard-interactive for mfauser from 192.168.122.1 port 41402 ssh2 [preauth]
+Nov  1 23:28:05 rhel9-stig sshd-session[1335]: Postponed keyboard-interactive/pam for mfauser from 192.168.122.1 port 41402 ssh2 [preauth]
+Nov  1 23:28:07 rhel9-stig sshd-session[1337]: pam_sss(sshd:auth): authentication failure; logname= uid=0 euid=0 tty=ssh ruser= rhost=192.168.122.1 user=mfauser
+Nov  1 23:28:07 rhel9-stig sshd-session[1337]: pam_sss(sshd:auth): received for user mfauser: 7 (Authentication failure)
+Nov  1 23:28:08 rhel9-stig sshd-session[1335]: error: PAM: Authentication failure for mfauser from 192.168.122.1
+Nov  1 23:28:08 rhel9-stig sshd-session[1335]: Failed keyboard-interactive/pam for mfauser from 192.168.122.1 port 41402 ssh2
+Nov  1 23:28:09 rhel9-stig sshd-session[1335]: Postponed keyboard-interactive for mfauser from 192.168.122.1 port 41402 ssh2 [preauth]
+Nov  1 23:28:13 rhel9-stig sshd-session[1335]: Connection closed by authenticating user mfauser 192.168.122.1 port 41402 [preauth]

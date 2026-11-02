@@ -1,0 +1,174 @@
+Script started on 2026-11-01 21:24:42-07:00 [TERM="xterm-kitty" TTY="/dev/pts/0" COLUMNS="113" LINES="61"]
+?2004h[chandler@ipa ~]$ 7mkinit admin27m
+7mipa user-show mfauser | grep -iE "password expiration|authentication types"27m
+7mipa user-status mfauserkinit admin
+ipa user-show mfauser | grep -iE "password expiration|authentication types"
+ipa user-status mfauser
+?2004lPassword for admin@LAB.TEST:
+  User 01;31mKauthentication typesmK: otp
+-----------------------
+Account disabled: False
+-----------------------
+  Server: ipa.lab.test
+  Failed logins: 0
+  Last successful authentication: N/A
+  Last failed authentication: 20261102041447Z
+  Time now: 2026-11-02T04:25:04Z
+  Password grace count: 0
+----------------------------
+Number of entries returned 1
+----------------------------
+?2004h[chandler@ipa ~]$ 7mipa user-show mfauser | grep -iE "password expiration|authentication types"27mCCCCCCCCCCCCCCCCCCipa user-show mfauser | grep -iE "password expiration|authentication types"
+?2004l	User 01;31mKauthentication typesmK: otp
+?2004h[chandler@ipa ~]$ ^[[200~ldapwhoami -x -H ldapi://%2Frun%2Fslapd-LAB-TEST.socket -D "uid=mfauser,cn=users,cn=accounts,dc=lab,dc=test" -W~
+?2004lbash: $'\E[200~ldapwhoami': command not found
+?2004h[chandler@ipa ~]$ 7mldapwhoami -x -H ldapi://%2Frun%2Fslapd-LAB-TEST.socket -D "uid=mfauser,cn=users,cn=accounts,dc27m7m=27m7mlab,dc=test" -W27mACCldapwhoami -x -H ldapi://%2Frun%2Fslapd-LAB-TEST.socket -D "uid=mfauser,cn=users,cn=accounts,dc=lab,dc=test" -W
+?2004lEnter LDAP Password:
+dn: uid=mfauser,cn=users,cn=accounts,dc=lab,dc=test
+?2004h[chandler@ipa ~]$ 7mkdestroy -c FILE:/tmp/mfa.ccache 2>/dev/null27mCCCCCCCCCCCCCCCCCCkdestroy -c FILE:/tmp/mfa.ccache 2>/dev/null
+?2004l?2004h[chandler@ipa ~]$ 7mkinit -T FILE:/tmp/armor.ccache -c FILE:/tmp/mfa.ccache mfauser27mCCCCCCCCCCCCCCCCCCkinit -T FILE:/tmp/armor.ccache -c FILE:/tmp/mfa.ccache mfauser
+?2004lPassword for mfauser@LAB.TEST:
+kinit: Password incorrect while getting initial credentials
+?2004h[chandler@ipa ~]$ kinit -T FILE:/tmp/armor.ccache -c FILE:/tmp/mfa.ccache mfauser
+?2004lPassword for mfauser@LAB.TEST:
+kinit: Password incorrect while getting initial credentials
+?2004h[chandler@ipa ~]$ kinit -T FILE:/tmp/armor.ccache -c FILE:/tmp/mfa.ccache mfauser
+?2004lPassword for mfauser@LAB.TEST:
+kinit: Password incorrect while getting initial credentials
+?2004h[chandler@ipa ~]$ 7mklist -C -c FILE:/tmp/mfa.ccache27mCCCCCCCCCCCCCCCCCCklist -C -c FILE:/tmp/mfa.ccache
+?2004lklist: No credentials cache found (filename: /tmp/mfa.ccache)
+?2004h[chandler@ipa ~]$ 7mkinit -T FILE:/tmp/armor.ccache -c FILE:/tmp/mfa.ccache mfauser27mCCCCCCCCCCCCCCCCCCkinit -T FILE:/tmp/armor.ccache -c FILE:/tmp/mfa.ccache mfauser
+?2004lPassword for mfauser@LAB.TEST:
+kinit: Password incorrect while getting initial credentials
+?2004h[chandler@ipa ~]$ kinit -T FILE:/tmp/armor.ccache -c FILE:/tmp/mfa.ccache mfauser
+?2004lPassword for mfauser@LAB.TEST:
+kinit: Password incorrect while getting initial credentials
+?2004h[chandler@ipa ~]$ exit
+?2004lexit
+
+Script done on 2026-11-01 21:27:25-07:00 [COMMAND_EXIT_CODE="1"]
+Script started on 2026-11-01 21:30:30-07:00 [TERM="xterm-kitty" TTY="/dev/pts/0" COLUMNS="113" LINES="61"]
+?2004h[chandler@ipa ~]$ 7mkinkinitmadmin
+?2004lPassword for admin@LAB.TEST:
+kinit: Password incorrect while getting initial credentials
+?2004h[chandler@ipa ~]$ kinit admin
+?2004lPassword for admin@LAB.TEST:
+?2004h[chandler@ipa ~]$ 7msudsudo2-v
+?2004l[sudo] password for chandler:
+?2004h[chandler@ipa ~]$ 7mipa user-status mfauser27mCCCCCCCCCCCCCCCCCCipa user-status mfauser
+?2004l-----------------------
+Account disabled: False
+-----------------------
+  Server: ipa.lab.test
+  Failed logins: 5
+  Last successful authentication: N/A
+  Last failed authentication: 20261102042716Z
+  Time now: 2026-11-02T04:31:00Z
+  Password grace count: 0
+----------------------------
+Number of entries returned 1
+----------------------------
+?2004h[chandler@ipa ~]$ 7mipa otptoken-find --owner=mfauser | grep -iE "unique id|description|disabled|matched"27mCCCCCCCCCCCCCCCCCCipa otptoken-find --owner=mfauser | grep -iE "unique id|description|disabled|matched"
+?2004l0 OTP tokens 01;31mKmatchedmK
+?2004h[chandler@ipa ~]$ 7mipa user-show mfauser --all | grep -iE "password expiration|last password change|kerberos keys|27m7ma27m7muthentication types"2ipa user-show mfauser --all | grep -iE "password expiration|last password change|kerberos keys|authentication types"
+?2004l	User 01;31mKpassword expirationmK: 20270101000000Z
+  User 01;31mKauthentication typesmK: otp
+  01;31mKKerberos keysmK available: True
+?2004h[chandler@ipa ~]$ 7msudo grep -E "mfauser|otptoken" /var/log/httpd/error_log | tail -n 2027mCCCCCCCCCCCCCCCCCCsudo grep -E "mfauser|otptoken" /var/log/httpd/error_log | tail -n 20
+?2004l[Sun Nov 01 21:03:40.246199 2026] [wsgi:error] [pid 1214:tid 1547] [remote 192.168.122.10:45172] ipa: INFO: [jsonserver_session] admin@LAB.TEST: user_status/1('mfauser', version='2.257'): SUCCESS
+[Sun Nov 01 21:03:40.754362 2026] [wsgi:error] [pid 1213:tid 1554] [remote 192.168.122.10:45182] ipa: INFO: [jsonserver_session] admin@LAB.TEST: otptoken_del/1(['52703a71-b11e-46e8-80b2-5747ae7dc915'], version='2.257'): SUCCESS
+[Sun Nov 01 21:03:41.273556 2026] [wsgi:error] [pid 1215:tid 1557] [remote 192.168.122.10:51850] ipa: INFO: [jsonserver_session] admin@LAB.TEST: otptoken_find/1(None, ipatokenowner='mfauser', version='2.257'): SUCCESS
+[Sun Nov 01 21:05:10.232122 2026] [wsgi:error] [pid 1216:tid 1551] [remote 192.168.122.10:36170] ipa: INFO: [jsonserver_session] admin@LAB.TEST: user_status/1('mfauser', version='2.257'): SUCCESS
+[Sun Nov 01 21:11:54.423115 2026] [wsgi:error] [pid 1214:tid 1547] [remote 192.168.122.10:53586] ipa: INFO: [jsonserver_kerb] admin@LAB.TEST: otptoken_find/1(None, ipatokenowner='mfauser', version='2.257'): SUCCESS
+[Sun Nov 01 21:13:08.970399 2026] [wsgi:error] [pid 1213:tid 1554] [remote 192.168.122.10:53450] ipa: INFO: [jsonserver_session] admin@LAB.TEST: user_status/1('mfauser', version='2.257'): SUCCESS
+[Sun Nov 01 21:13:29.312909 2026] [wsgi:error] [pid 1215:tid 1557] [remote 192.168.122.10:44518] ipa: INFO: [jsonserver_kerb] admin@LAB.TEST: otptoken_find/1(None, ipatokenowner='mfauser', version='2.257'): SUCCESS
+[Sun Nov 01 21:16:13.033652 2026] [wsgi:error] [pid 1216:tid 1551] [remote 192.168.122.10:40570] ipa: INFO: [jsonserver_kerb] admin@LAB.TEST: command_defaults/1('passwd/1', params=('current_password',), kw={'principal': 'mfauser'}, version='2.257'): SUCCESS
+[Sun Nov 01 21:16:22.053755 2026] [wsgi:error] [pid 1214:tid 1547] [remote 192.168.122.10:40570] ipa: INFO: [jsonserver_kerb] admin@LAB.TEST: passwd/1('mfauser', '********', None, version='2.257'): SUCCESS
+[Sun Nov 01 21:16:22.708240 2026] [wsgi:error] [pid 1213:tid 1554] [remote 192.168.122.10:37394] ipa: INFO: [jsonserver_session] admin@LAB.TEST: user_mod/1('mfauser', krbpasswordexpiration=datetime.datetime(2027, 1, 1, 0, 0), version='2.257'): SUCCESS
+[Sun Nov 01 21:16:22.981903 2026] [wsgi:error] [pid 1215:tid 1557] [remote 192.168.122.10:37410] ipa: INFO: [jsonserver_session] admin@LAB.TEST: user_show/1('mfauser', version='2.257'): SUCCESS
+[Sun Nov 01 21:16:23.517831 2026] [wsgi:error] [pid 1216:tid 1551] [remote 192.168.122.10:37426] ipa: INFO: [jsonserver_session] admin@LAB.TEST: user_unlock/1('mfauser', version='2.257'): SUCCESS
+[Sun Nov 01 21:16:29.816780 2026] [wsgi:error] [pid 1214:tid 1547] [remote 192.168.122.10:37440] ipa: INFO: [jsonserver_session] admin@LAB.TEST: otptoken_find/1(None, ipatokenowner='mfauser', version='2.257'): SUCCESS
+[Sun Nov 01 21:17:13.731130 2026] [wsgi:error] [pid 1213:tid 1554] [remote 192.168.122.10:57320] ipa: INFO: [jsonserver_session] admin@LAB.TEST: otptoken_find/1(None, ipatokenowner='mfauser', version='2.257'): SUCCESS
+[Sun Nov 01 21:25:03.844097 2026] [wsgi:error] [pid 1215:tid 1557] [remote 192.168.122.10:55196] ipa: INFO: [jsonserver_kerb] admin@LAB.TEST: user_show/1('mfauser', version='2.257'): SUCCESS
+[Sun Nov 01 21:25:04.151682 2026] [wsgi:error] [pid 1216:tid 1551] [remote 192.168.122.10:55210] ipa: INFO: [jsonserver_session] admin@LAB.TEST: user_status/1('mfauser', version='2.257'): SUCCESS
+[Sun Nov 01 21:25:37.901196 2026] [wsgi:error] [pid 1214:tid 1547] [remote 192.168.122.10:34270] ipa: INFO: [jsonserver_session] admin@LAB.TEST: user_show/1('mfauser', version='2.257'): SUCCESS
+[Sun Nov 01 21:31:00.304004 2026] [wsgi:error] [pid 1213:tid 1554] [remote 192.168.122.10:34226] ipa: INFO: [jsonserver_kerb] admin@LAB.TEST: user_status/1('mfauser', version='2.257'): SUCCESS
+[Sun Nov 01 21:31:06.134389 2026] [wsgi:error] [pid 1215:tid 1557] [remote 192.168.122.10:53576] ipa: INFO: [jsonserver_session] admin@LAB.TEST: otptoken_find/1(None, ipatokenowner='mfauser', version='2.257'): SUCCESS
+[Sun Nov 01 21:31:11.635178 2026] [wsgi:error] [pid 1216:tid 1551] [remote 192.168.122.10:42192] ipa: INFO: [jsonserver_session] admin@LAB.TEST: user_show/1('mfauser', all=True, version='2.257'): SUCCESS
+?2004h[chandler@ipa ~]$ 7msudo grep mfauser /var/log/krb5kdc.log | tail -n 1227mCCCCCCCCCCCCCCCCCCsudo grep mfauser /var/log/krb5kdc.log | tail -n 12
+?2004lNov 01 21:26:48 ipa.lab.test krb5kdc[1177](info): Entry (uid=mfauser,cn=users,cn=accounts,dc=lab,dc=test) does not have a valid token and only OTP authentication is supported, checking for expired tokens...
+Nov 01 21:26:48 ipa.lab.test krb5kdc[1177](info): AS_REQ (2 etypes {aes256-cts-hmac-sha384-192(20), aes128-cts-hmac-sha256-128(19)}) 192.168.122.10: NEEDED_PREAUTH: mfauser@LAB.TEST for krbtgt/LAB.TEST@LAB.TEST, Additional pre-authentication required
+Nov 01 21:26:56 ipa.lab.test krb5kdc[1177](info): Entry (uid=mfauser,cn=users,cn=accounts,dc=lab,dc=test) does not have a valid token and only OTP authentication is supported, checking for expired tokens...
+Nov 01 21:26:56 ipa.lab.test krb5kdc[1177](info): AS_REQ (2 etypes {aes256-cts-hmac-sha384-192(20), aes128-cts-hmac-sha256-128(19)}) 192.168.122.10: PREAUTH_FAILED: mfauser@LAB.TEST for krbtgt/LAB.TEST@LAB.TEST, Incorrect password in encrypted challenge
+Nov 01 21:27:06 ipa.lab.test krb5kdc[1177](info): Entry (uid=mfauser,cn=users,cn=accounts,dc=lab,dc=test) does not have a valid token and only OTP authentication is supported, checking for expired tokens...
+Nov 01 21:27:06 ipa.lab.test krb5kdc[1177](info): AS_REQ (2 etypes {aes256-cts-hmac-sha384-192(20), aes128-cts-hmac-sha256-128(19)}) 192.168.122.10: NEEDED_PREAUTH: mfauser@LAB.TEST for krbtgt/LAB.TEST@LAB.TEST, Additional pre-authentication required
+Nov 01 21:27:10 ipa.lab.test krb5kdc[1177](info): Entry (uid=mfauser,cn=users,cn=accounts,dc=lab,dc=test) does not have a valid token and only OTP authentication is supported, checking for expired tokens...
+Nov 01 21:27:10 ipa.lab.test krb5kdc[1177](info): AS_REQ (2 etypes {aes256-cts-hmac-sha384-192(20), aes128-cts-hmac-sha256-128(19)}) 192.168.122.10: PREAUTH_FAILED: mfauser@LAB.TEST for krbtgt/LAB.TEST@LAB.TEST, Incorrect password in encrypted challenge
+Nov 01 21:27:12 ipa.lab.test krb5kdc[1177](info): Entry (uid=mfauser,cn=users,cn=accounts,dc=lab,dc=test) does not have a valid token and only OTP authentication is supported, checking for expired tokens...
+Nov 01 21:27:12 ipa.lab.test krb5kdc[1177](info): AS_REQ (2 etypes {aes256-cts-hmac-sha384-192(20), aes128-cts-hmac-sha256-128(19)}) 192.168.122.10: NEEDED_PREAUTH: mfauser@LAB.TEST for krbtgt/LAB.TEST@LAB.TEST, Additional pre-authentication required
+Nov 01 21:27:16 ipa.lab.test krb5kdc[1177](info): Entry (uid=mfauser,cn=users,cn=accounts,dc=lab,dc=test) does not have a valid token and only OTP authentication is supported, checking for expired tokens...
+Nov 01 21:27:16 ipa.lab.test krb5kdc[1177](info): AS_REQ (2 etypes {aes256-cts-hmac-sha384-192(20), aes128-cts-hmac-sha256-128(19)}) 192.168.122.10: PREAUTH_FAILED: mfauser@LAB.TEST for krbtgt/LAB.TEST@LAB.TEST, Incorrect password in encrypted challenge
+?2004h[chandler@ipa ~]$ 7msudo journalctl -u 'ipa-otpd@*' --since "21:20" --no-pager | tail -n 2027mCCCCCCCCCCCCCCCCCCsudo journalctl -u 'ipa-otpd@*' --since "21:20" --no-pager | tail -n 20
+?2004l-- No entries --
+?2004h[chandler@ipa ~]$ exit
+?2004lexit
+
+Script done on 2026-11-01 21:31:26-07:00 [COMMAND_EXIT_CODE="0"]
+Script started on 2026-11-01 21:33:53-07:00 [TERM="xterm-kitty" TTY="/dev/pts/0" COLUMNS="113" LINES="61"]
+?2004h[chandler@ipa ~]$ 7mkinkinitmadmin
+?2004lPassword for admin@LAB.TEST:
+?2004h[chandler@ipa ~]$ 7mipa user-unlock mfauser27mCCCCCCCCCCCCCCCCCCipa user-unlock mfauser
+?2004l--------------------------
+Unlocked account "mfauser"
+--------------------------
+?2004h[chandler@ipa ~]$ 7mipaipaspasswdamfauser
+?2004lNew Password:
+Enter New Password again to verify:
+---------------------------------------
+Changed password for "mfauser@LAB.TEST"
+---------------------------------------
+?2004h[chandler@ipa ~]$ 7mipa user-mod mfauser --password-expiration="20270101000000Z"27mCCCCCCCCCCCCCCCCCCipa user-mod mfauser --password-expiration="20270101000000Z"
+?2004l-----------------------
+Modified user "mfauser"
+-----------------------
+  User login: mfauser
+  First name: MFA
+  Last name: Demo
+  Home directory: /home/mfauser
+  Login shell: /bin/bash
+  Principal name: mfauser@LAB.TEST
+  Principal alias: mfauser@LAB.TEST
+  User password expiration: 20270101000000Z
+  Email address: mfauser@lab.test
+  UID: 1312600003
+  GID: 1312600003
+  User authentication types: otp
+  Account disabled: False
+  Password: True
+  Member of groups: ipausers
+  Kerberos keys available: True
+?2004h[chandler@ipa ~]$ 7mkdestroy -c FILE:/tmp/mfa.ccache 2>/dev/null27mCCCCCCCCCCCCCCCCCCkdestroy -c FILE:/tmp/mfa.ccache 2>/dev/null
+?2004l?2004h[chandler@ipa ~]$ 7mkinit -T FILE:/tmp/armor.ccache -c FILE:/tmp/mfa.ccache mfauser27mCCCCCCCCCCCCCCCCCCkinit -T FILE:/tmp/armor.ccache -c FILE:/tmp/mfa.ccache mfauser
+?2004lPassword for mfauser@LAB.TEST:
+?2004h[chandler@ipa ~]$ 7mklist -C -c FILE:/tmp/mfa.ccache27mCCCCCCCCCCCCCCCCCCklist -C -c FILE:/tmp/mfa.ccache
+?2004lTicket cache: FILE:/tmp/mfa.ccache
+Default principal: mfauser@LAB.TEST
+
+Valid starting	     Expires		  Service principal
+config: fast_avail(krbtgt/LAB.TEST@LAB.TEST) = yes
+config: pa_type(krbtgt/LAB.TEST@LAB.TEST) = 138
+11/01/2026 21:34:42  11/02/2026 21:15:20  krbtgt/LAB.TEST@LAB.TEST
+?2004h[chandler@ipa ~]$ 7msudo grep mfauser /var/log/krb5kdc.log | tail -n 427mCCCCCCCCCCCCCCCCCCsudo grep mfauser /var/log/krb5kdc.log | tail -n 4
+?2004l[sudo] password for chandler:
+Nov 01 21:34:35 ipa.lab.test krb5kdc[1178](info): Entry (uid=mfauser,cn=users,cn=accounts,dc=lab,dc=test) does not have a valid token and only OTP authentication is supported, checking for expired tokens...
+Nov 01 21:34:35 ipa.lab.test krb5kdc[1178](info): AS_REQ (2 etypes {aes256-cts-hmac-sha384-192(20), aes128-cts-hmac-sha256-128(19)}) 192.168.122.10: NEEDED_PREAUTH: mfauser@LAB.TEST for krbtgt/LAB.TEST@LAB.TEST, Additional pre-authentication required
+Nov 01 21:34:42 ipa.lab.test krb5kdc[1178](info): Entry (uid=mfauser,cn=users,cn=accounts,dc=lab,dc=test) does not have a valid token and only OTP authentication is supported, checking for expired tokens...
+Nov 01 21:34:42 ipa.lab.test krb5kdc[1178](info): AS_REQ (2 etypes {aes256-cts-hmac-sha384-192(20), aes128-cts-hmac-sha256-128(19)}) 192.168.122.10: ISSUE: authtime 1793594082, etypes {rep=aes256-cts-hmac-sha384-192(20), tkt=aes256-cts-hmac-sha384-192(20), ses=aes256-cts-hmac-sha384-192(20)}, mfauser@LAB.TEST for krbtgt/LAB.TEST@LAB.TEST
+?2004h[chandler@ipa ~]$ 7mipa otptoken-find --owner=mfauser | grep -iE "unique id|description|matched"27mCCCCCCCCCCCCCCCCCCipa otptoken-find --owner=mfauser | grep -iE "unique id|description|matched"
+?2004l1 OTP token 01;31mKmatchedmK
+  01;31mKUnique IDmK: b34e02ff-8849-42da-be69-2aec15b621ef
+  01;31mKDescriptionmK: mfauser phone
+?2004h[chandler@ipa ~]$ exit
+?2004lexit
+
+Script done on 2026-11-01 21:37:26-07:00 [COMMAND_EXIT_CODE="0"]

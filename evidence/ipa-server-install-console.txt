@@ -1,0 +1,563 @@
+[chandler@ipa ~]$ sudo ipa-server-install \                                                                      
+  --realm LAB.TEST \        
+  --domain lab.test \       
+  --hostname ipa.lab.test \ 
+  --ip-address 192.168.122.10 \                         
+  --setup-dns \             
+  --forwarder 192.168.122.1 \                           
+  --auto-reverse \          
+  --no-dnssec-validation    
+[sudo] password for chandler:                           
+
+The log file for this installation can be found in /var/log/ipaserver-install.log                                
+==============================================================================                                   
+This program will set up the IPA Server.                
+Version 4.13.4              
+
+This includes:              
+  * Configure a stand-alone CA (dogtag) for certificate management                                               
+  * Configure the NTP client (chronyd)                  
+  * Create and configure an instance of Directory Server                                                         
+  * Create and configure a Kerberos Key Distribution Center (KDC)                                                
+  * Configure Apache (httpd)                            
+  * Configure DNS (bind)    
+  * Configure SID generation                            
+  * Configure the KDC to enable PKINIT                  
+
+To accept the default shown in brackets, press the Enter key.                                                    
+
+Warning: skipping DNS resolution of host ipa.lab.test   
+Certain directory server operations require an administrative user.                                              
+This user is referred to as the Directory Manager and has full access                                            
+to the Directory for system management tasks and will be added to the                                            
+instance of directory server created for IPA.           
+The password must be at least 8 characters long.        
+
+Directory Manager password:                             
+Password must not contain control characters            
+Directory Manager password:                             
+Password must be at least 8 characters long             
+Directory Manager password:                             
+Password (confirm):         
+
+The IPA server requires an administrative user, named 'admin'.                                                   
+This user is a regular system account used for IPA server administration.                                        
+
+IPA admin password:         
+Password (confirm):         
+
+Checking DNS domain lab.test., please wait ...          
+Reverse record for IP address 192.168.122.10 already exists                                                      
+Trust is configured but no NetBIOS domain name found, setting it now.                                            
+Enter the NetBIOS name for the IPA domain.              
+Only up to 15 uppercase ASCII letters, digits and dashes are allowed.                                            
+Example: EXAMPLE.           
+
+
+NetBIOS domain name [LAB]:  
+
+Do you want to configure chrony with NTP server or pool address? [no]:                                           
+
+The IPA Master Server will be configured with:          
+Hostname:       ipa.lab.test                            
+IP address(es): 192.168.122.10                          
+Domain name:    lab.test    
+Realm name:     LAB.TEST    
+
+The CA will be configured with:                         
+Subject DN:   CN=Certificate Authority,O=LAB.TEST       
+Subject base: O=LAB.TEST    
+Chaining:     self-signed   
+
+BIND DNS server will be configured to serve IPA domain with:                                                     
+Forwarders:       192.168.122.1                         
+Forward policy:   only      
+Reverse zone(s):  No reverse zone                       
+
+Continue to configure the system with these values? [no]: yes                                                    
+
+The following operations may take some minutes to complete.                                                      
+Please wait until the prompt is returned.               
+
+Disabled p11-kit-proxy      
+Synchronizing time          
+No SRV records of NTP servers found and no NTP server or pool address was provided.                              
+Using default chrony configuration.                     
+Attempting to sync time with chronyc.                   
+Time synchronization was successful.                    
+Configuring directory server (dirsrv). Estimated time: 30 seconds                                                
+  [1/44]: creating directory server instance            
+Validate installation settings ...                      
+Create file system structures ...                       
+Perform SELinux labeling ...                            
+Create database backend: dc=lab,dc=test ...             
+Perform post-installation tasks ...                     
+^[[A^[[A^[[A^[[A^[[A^[[A^[[A^[[A^[[A^[[A  [2/44]: tune ldbm plugin                                               
+  [3/44]: adding default schema                         
+  [4/44]: enabling memberof plugin                      
+  [5/44]: enabling winsync plugin                       
+  [6/44]: configure password logging                    
+^[[B^[[B^[[B^[[B^[[B  [7/44]: configuring replication version plugin                                             
+  [8/44]: enabling IPA enrollment plugin                
+  [9/44]: configuring krbPrincipalMatch plugin          
+  [10/44]: configuring uniqueness plugin                
+  [11/44]: configuring uuid plugin                      
+^[[B^[[B^[[B^[[B^[[B^[[A^[[A^[[A^[[A^[[A^[[A^[[A^[[A^[[A^[[A  [12/44]: configuring modrdn plugin                 
+  [13/44]: configuring DNS plugin                       
+  [14/44]: enabling entryUSN plugin                     
+^[[A^[[A^[[A^[[A^[[A  [15/44]: configuring lockout plugin                                                        
+  [16/44]: configuring graceperiod plugin               
+  [17/44]: configuring topology plugin                  
+  [18/44]: creating indices 
+  [19/44]: enabling referential integrity plugin        
+  [20/44]: configuring certmap.conf                     
+  [21/44]: configure new location for managed entries   
+  [22/44]: configure dirsrv ccache and keytab           
+  [23/44]: enabling SASL mapping fallback               
+  [24/44]: restarting directory server                  
+  [25/44]: adding sasl mappings to the directory        
+  [26/44]: adding default layout                        
+  [27/44]: adding delegation layout                     
+  [28/44]: creating container for managed entries       
+  [29/44]: configuring user private groups              
+  [30/44]: configuring netgroups from hostgroups        
+  [31/44]: creating default Sudo bind user              
+  [32/44]: creating default Auto Member layout          
+  [33/44]: adding range check plugin                    
+  [34/44]: creating default HBAC rule allow_all         
+  [35/44]: adding entries for topology management       
+  [36/44]: initializing group membership                
+  [37/44]: adding master entry                          
+  [38/44]: initializing domain level                    
+  [39/44]: configuring Posix uid/gid generation         
+  [40/44]: adding replication acis                      
+  [41/44]: activating sidgen plugin                     
+  [42/44]: activating extdom plugin                     
+  [43/44]: configuring directory to start on boot       
+  [44/44]: restarting directory server                  
+Done configuring directory server (dirsrv).             
+Configuring Kerberos KDC (krb5kdc)                      
+  [1/11]: adding kerberos container to the directory    
+  [2/11]: configuring KDC   
+  [3/11]: initialize kerberos container                 
+  [4/11]: adding default ACIs                           
+  [5/11]: creating a keytab for the directory           
+  [6/11]: creating a keytab for the machine             
+  [7/11]: adding the password extension to the directory                                                         
+  [8/11]: creating anonymous principal                  
+  [9/11]: starting the KDC  
+  [10/11]: configuring KDC to start on boot             
+  [11/11]: enable PAC ticket signature support          
+Done configuring Kerberos KDC (krb5kdc).                
+Configuring kadmin          
+  [1/2]: starting kadmin    
+  [2/2]: configuring kadmin to start on boot            
+Done configuring kadmin.    
+Configuring ipa-custodia    
+  [1/5]: Making sure custodia container exists          
+  [2/5]: Generating ipa-custodia config file            
+  [3/5]: Generating ipa-custodia keys                   
+  [4/5]: starting ipa-custodia                          
+  [5/5]: configuring ipa-custodia to start on boot      
+Done configuring ipa-custodia.                          
+Configuring certificate server (pki-tomcatd). Estimated time: 3 minutes                                          
+  [1/32]: configuring certificate server instance       
+^[[B^[[B^[[B^[[B^[[B^[[B^[[B^[[B^[[B^[[B  [2/32]: stopping certificate server instance to update CS.cfg          
+  [3/32]: backing up CS.cfg 
+  [4/32]: Add ipa-pki-wait-running                      
+Set start up timeout of pki-tomcatd service to 90 seconds                                                        
+  [5/32]: secure AJP connector                          
+  [6/32]: reindex attributes                            
+  [7/32]: exporting Dogtag certificate store pin        
+  [8/32]: disabling nonces  
+  [9/32]: set up CRL publishing                         
+  [10/32]: enable PKIX certificate path discovery and validation                                                 
+  [11/32]: authorizing RA to modify profiles            
+  [12/32]: authorizing RA to manage lightweight CAs     
+  [13/32]: Ensure lightweight CAs container exists      
+  [14/32]: Enable lightweight CA monitor                
+  [15/32]: Ensuring backward compatibility              
+  [16/32]: updating IPA configuration                   
+  [17/32]: starting certificate server instance         
+  [18/32]: configure certmonger for renewals            
+  [19/32]: requesting RA certificate from CA            
+  [20/32]: publishing the CA certificate                
+  [21/32]: adding RA agent as a trusted user            
+  [22/32]: configure certificate renewals               
+  [23/32]: Configure HTTP to proxy connections          
+  [24/32]: enabling CA instance                         
+  [25/32]: importing IPA certificate profiles           
+Getting PKI server info from /pki/v2/info               
+Getting PKI server info from /pki/v2/info               
+Getting PKI server info from /pki/v2/info               
+Getting PKI server info from /pki/v2/info               
+Getting PKI server info from /pki/v2/info               
+  [26/32]: migrating certificate profiles to LDAP       
+  [27/32]: adding default CA ACL                        
+  [28/32]: adding 'ipa' CA entry                        
+Getting PKI server info from /pki/v2/info               
+  [29/32]: Recording random serial number state         
+  [30/32]: Recording HSM configuration state            
+  [31/32]: configuring certmonger renewal for lightweight CAs                                                    
+  [32/32]: deploying ACME service                       
+Done configuring certificate server (pki-tomcatd).      
+Configuring directory server (dirsrv)                   
+  [1/3]: configuring TLS for DS instance                
+  [2/3]: adding CA certificate entry                    
+  [3/3]: restarting directory server                    
+Done configuring directory server (dirsrv).             
+Configuring ipa-otpd        
+  [1/2]: starting ipa-otpd  
+  [2/2]: configuring ipa-otpd to start on boot          
+Done configuring ipa-otpd.  
+Configuring the web interface (httpd)                   
+  [1/21]: stopping httpd    
+  [2/21]: backing up ssl.conf                           
+  [3/21]: configuring mod_ssl certificate paths         
+  [4/21]: setting mod_ssl protocol list                 
+  [5/21]: configuring mod_ssl log directory             
+  [6/21]: disabling mod_ssl OCSP                        
+  [7/21]: adding URL rewriting rules                    
+  [8/21]: configuring httpd 
+Nothing to do for configure_httpd_wsgi_conf             
+  [9/21]: setting up httpd keytab                       
+  [10/21]: configuring Gssproxy                         
+  [11/21]: setting up ssl   
+  [12/21]: configure certmonger for renewals            
+  [13/21]: publish CA cert  
+  [14/21]: clean up any existing httpd ccaches          
+  [15/21]: enable ccache sweep                          
+  [16/21]: configuring SELinux for httpd                
+  [17/21]: create KDC proxy config                      
+  [18/21]: enable KDC proxy 
+  [19/21]: starting httpd   
+  [20/21]: configuring httpd to start on boot           
+  [21/21]: enabling oddjobd 
+Done configuring the web interface (httpd).             
+Configuring Kerberos KDC (krb5kdc)                      
+  [1/1]: installing X509 Certificate for PKINIT         
+Done configuring Kerberos KDC (krb5kdc).                
+Applying LDAP updates       
+Upgrading IPA:. Estimated time: 1 minute 30 seconds     
+  [1/10]: stopping directory server                     
+  [2/10]: saving configuration                          
+  [3/10]: disabling listeners                           
+  [4/10]: enabling DS global lock                       
+  [5/10]: disabling Schema Compat                       
+  [6/10]: starting directory server                     
+  [7/10]: upgrading server  
+dnaRemoteBindMethod is set on the global DNA entry already.                                                      
+dnaRemoteBindMethod is set on the global DNA entry already.                                                      
+  [8/10]: stopping directory server                     
+  [9/10]: restoring configuration                       
+  [10/10]: starting directory server                    
+Done.                       
+Restarting the KDC          
+dnssec-validation no        
+Configuring DNS (named)     
+  [1/12]: generating rndc key file                      
+  [2/12]: adding DNS container                          
+  [3/12]: setting up our zone                           
+  [4/12]: setting up our own record                     
+  [5/12]: setting up records for other masters          
+  [6/12]: adding NS record to the zones                 
+  [7/12]: setting up kerberos principal                 
+  [8/12]: setting up LDAPI autobind                     
+  [9/12]: setting up named.conf                         
+created new /etc/named.conf 
+created named user config '/etc/named/ipa-ext.conf'     
+created named user config '/etc/named/ipa-options-ext.conf'                                                      
+created named user config '/etc/named/ipa-logging-ext.conf'                                                      
+  [10/12]: setting up server configuration              
+  [11/12]: configuring named to start on boot           
+  [12/12]: changing resolv.conf to point to ourselves   
+Done configuring DNS (named).                           
+Restarting the web server to pick up resolv.conf changes                                                         
+Configuring DNS key synchronization service (ipa-dnskeysyncd)                                                    
+  [1/7]: checking status    
+  [2/7]: setting up bind-dyndb-ldap working directory   
+  [3/7]: setting up kerberos principal                  
+  [4/7]: setting up SoftHSM 
+  [5/7]: adding DNSSEC containers                       
+  [6/7]: creating replica keys                          
+  [7/7]: configuring ipa-dnskeysyncd to start on boot   
+Done configuring DNS key synchronization service (ipa-dnskeysyncd).                                              
+Restarting ipa-dnskeysyncd  
+Restarting named            
+Updating DNS system records 
+Configuring SID generation  
+  [1/8]: adding RID bases   
+  [2/8]: creating samba domain object                   
+  [3/8]: adding admin(group) SIDs                       
+  [4/8]: updating Kerberos config                       
+'dns_lookup_kdc' already set to 'true', nothing to do.  
+  [5/8]: activating sidgen task                         
+  [6/8]: restarting Directory Server to take MS PAC and LDAP plugins changes into account                        
+  [7/8]: adding fallback group                          
+  [8/8]: adding SIDs to existing users and groups       
+This step may take considerable amount of time, please wait..                                                    
+Done.                       
+Configuring client side components                      
+This program will set up IPA client.                    
+Version 4.13.4              
+
+Using existing certificate '/etc/ipa/ca.crt'.           
+Client hostname: ipa.lab.test                           
+Realm: LAB.TEST             
+DNS Domain: lab.test        
+IPA Server: ipa.lab.test    
+BaseDN: dc=lab,dc=test      
+
+Configured /etc/sssd/sssd.conf                          
+Systemwide CA database updated.                         
+Adding SSH public key from /etc/ssh/ssh_host_ecdsa_key.pub                                                       
+Adding SSH public key from /etc/ssh/ssh_host_rsa_key.pub                                                         
+SSSD enabled                
+Configured /etc/openldap/ldap.conf                      
+Configured /etc/ssh/ssh_config                          
+Configured /etc/ssh/sshd_config.d/04-ipa.conf           
+Configuring lab.test as NIS domain.                     
+Client configuration complete.                          
+The ipa-client-install command was successful           
+
+Enabling and restarting the IPA service                 
+==============================================================================                                   
+Setup complete              
+
+Next steps:                 
+        1. You must make sure these network ports are open:                                                      
+                TCP Ports:  
+                  * 80, 443: HTTP/HTTPS                 
+                  * 389, 636: LDAP/LDAPS                
+                  * 88, 464: kerberos                   
+                  * 53: bind                            
+                UDP Ports:  
+                  * 88, 464: kerberos                   
+                  * 53: bind                            
+                  * 123: ntp                            
+
+        2. You can now obtain a kerberos ticket using the command: 'kinit admin'                                 
+           This ticket will allow you to use the IPA tools (e.g., ipa user-add)                                  
+           and the web user interface.                  
+
+Be sure to back up the CA certificates stored in /root/cacert.p12                                                
+These files are required to create replicas. The password for these                                              
+files is the Directory Manager password                 
+The ipa-server-install command was successful           
+[chandler@ipa ~]$ cat /etc/resolv.conf                  
+# Generated by NetworkManager                                                                                    search lab.test             
+nameserver 127.0.0.1        
+[chandler@ipa ~]$ ls /etc/NetworkManager/conf.d/        
+zzz-ipa.conf                
+[chandler@ipa ~]$ sudo ipactl status                    
+[sudo] password for chandler:                           
+Directory Service: RUNNING  
+krb5kdc Service: RUNNING    
+kadmin Service: RUNNING     
+named Service: RUNNING      
+httpd Service: RUNNING      
+ipa-custodia Service: RUNNING                           
+pki-tomcatd Service: RUNNING                            
+ipa-otpd Service: RUNNING   
+ipa-dnskeysyncd Service: RUNNING                        
+ipa: INFO: The ipactl command was successful            
+[chandler@ipa ~]$ tmux capture-pane -p -J -S - > ~/ipa-server-install-console.txt                                
+wc -l ~/ipa-server-install-console.txt                  
+366 /home/chandler/ipa-server-install-console.txt       
+[chandler@ipa ~]$ wc -l ~/ipa-server-install-console.txt                                                         
+366 /home/chandler/ipa-server-install-console.txt       
+[chandler@ipa ~]$ kinit admin                           
+Password for admin@LAB.TEST:                            
+kinit: Password incorrect while getting initial credentials                                                      
+[chandler@ipa ~]$ kinit admin                           
+Password for admin@LAB.TEST:                            
+kinit: Password incorrect while getting initial credentials                                                      
+[chandler@ipa ~]$ kinit admin                           
+Password for admin@LAB.TEST:                            
+kinit: Password read interrupted while getting initial credentials                                               
+[chandler@ipa ~]$ ls /run/slapd-*.socket                
+sudo ldappasswd -Y EXTERNAL \                           
+  -H ldapi://%2Frun%2Fslapd-LAB-TEST.socket \           
+  -S "uid=admin,cn=users,cn=accounts,dc=lab,dc=test"    
+/run/slapd-LAB-TEST.socket  
+[sudo] password for chandler:                           
+New password:               
+Re-enter new password:      
+SASL/EXTERNAL authentication started                    
+SASL username: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth                                           
+SASL SSF: 0                 
+[chandler@ipa ~]$ kdestroy -A                           
+[chandler@ipa ~]$ kinit admin                           
+Password for admin@LAB.TEST:                            
+kinit: Password incorrect while getting initial credentials                                                      
+[chandler@ipa ~]$ kinit admin                           
+Password for admin@LAB.TEST:                            
+[chandler@ipa ~]$ klist     
+Ticket cache: KCM:1000      
+Default principal: admin@LAB.TEST                       
+
+Valid starting       Expires              Service principal                                                      
+11/01/2026 18:53:28  11/02/2026 18:39:06  krbtgt/LAB.TEST@LAB.TEST                                               
+[chandler@ipa ~]$ klist -e  
+Ticket cache: KCM:1000      
+Default principal: admin@LAB.TEST                       
+
+Valid starting       Expires              Service principal                                                      
+11/01/2026 18:53:28  11/02/2026 18:39:06  krbtgt/LAB.TEST@LAB.TEST                                               
+        Etype (skey, tkt): aes256-cts-hmac-sha384-192, aes256-cts-hmac-sha384-192                                
+[chandler@ipa ~]$ ipa server-role-find --status enabled 
+----------------------      
+2 server roles matched      
+----------------------      
+  Server name: ipa.lab.test 
+  Role name: CA server      
+  Role status: enabled      
+
+  Server name: ipa.lab.test 
+  Role name: DNS server     
+  Role status: enabled      
+----------------------------                            
+Number of entries returned 2                            
+----------------------------                            
+[chandler@ipa ~]$ ipa config-show | grep -iE "authentication types|home directory|default shell"                 
+  Home directory base: /home
+  Default shell: /bin/sh    
+[chandler@ipa ~]$ ipa dnszone-find | grep -E "Zone name|Active zone"                                             
+  Zone name: lab.test.      
+  Active zone: True         
+[chandler@ipa ~]$ dig @127.0.0.1 +short SRV _kerberos._udp.lab.test                                              
+dig @127.0.0.1 +short SRV _ldap._tcp.lab.test           
+dig @127.0.0.1 +short A ipa.lab.test                    
+dig @127.0.0.1 +short A ipa-ca.lab.test                 
+dig @127.0.0.1 +short redhat.com                        
+dig @127.0.0.1 +short -x 192.168.122.10                 
+0 100 88 ipa.lab.test.      
+0 100 389 ipa.lab.test.     
+192.168.122.10              
+192.168.122.10              
+34.235.198.240              
+52.200.142.250              
+ipa dnszone-add 122.168.192.in-addr.arpa.               
+ipa dnsrecord-add 122.168.192.in-addr.arpa. 10 --ptr-rec ipa.lab.test.                                           
+dig @127.0.0.1 +short -x 192.168.122.10                 
+[chandler@ipa ~]$ ipa dnszone-add 122.168.192.in-addr.arpa.                                                      
+^[[B^[[B^[[B^[[B^[[B  Zone name: 122.168.192.in-addr.arpa.                                                       
+  Active zone: True         
+  Authoritative nameserver: ipa.lab.test.               
+  Administrator e-mail address: hostmaster              
+  SOA serial: 1793584579    
+  SOA refresh: 3600         
+  SOA retry: 900            
+  SOA expire: 1209600       
+  SOA minimum: 3600         
+  BIND update policy: grant LAB.TEST krb5-subdomain 122.168.192.in-addr.arpa. PTR;                               
+  Dynamic update: False     
+  Allow query: any;         
+  Allow transfer: none;     
+[chandler@ipa ~]$ ipa dnsrecord-add 122.168.192.in-addr.arpa. 10 --ptr-rec ipa.lab.test.                         
+  Record name: 10           
+  PTR record: ipa.lab.test. 
+[chandler@ipa ~]$ dig @127.0.0.1 +short -x 192.168.122.10                                                        
+ipa.lab.test.               
+[chandler@ipa ~]$ sudo firewall-cmd --info-service=freeipa-4                                                     
+sudo firewall-cmd --list-services                       
+cat /etc/ssh/sshd_config.d/04-ipa.conf                  
+freeipa-4                   
+  ports:                    
+  protocols:                
+  source-ports:             
+  modules:                  
+  destination:              
+  includes: http https kerberos kpasswd ldap ldaps      
+  helpers:                  
+cockpit dhcpv6-client dns freeipa-4 ssh                 
+cat: /etc/ssh/sshd_config.d/04-ipa.conf: Permission denied                                                       
+[chandler@ipa ~]$ tmux capture-pane -p -J -S - > ~/ipa-server-install-console.txt                                
+wc -l ~/ipa-server-install-console.txt                  
+477 /home/chandler/ipa-server-install-console.txt       
+[chandler@ipa ~]$ openssl x509 -in /etc/ipa/ca.crt -noout -subject -fingerprint -sha256                          
+subject=O=LAB.TEST, CN=Certificate Authority            
+sha256 Fingerprint=76:06:2C:C0:54:65:BE:47:59:08:DD:9B:21:1D:AC:7C:90:74:AE:43:F4:9E:50:D3:1B:07:E5:6D:9D:55:FA:88                           
+[chandler@ipa ~]$ ldapwhoami -x -H ldapi://%2Frun%2Fslapd-LAB-TEST.socket -D "cn=Directory Manager" -W           
+Enter LDAP Password:        
+ldap_bind: Server is unwilling to perform (53)          
+        additional info: Unauthenticated binds are not allowed                                                   
+[chandler@ipa ~]$ ldapwhoami -x -H ldapi://%2Frun%2Fslapd-LAB-TEST.socket -D "cn=Directory Manager" -W           
+Enter LDAP Password:        
+ldap_bind: Invalid credentials (49)                     
+[chandler@ipa ~]$ ipa user-status admin                 
+-----------------------     
+Account disabled: False     
+-----------------------     
+  Server: ipa.lab.test      
+  Failed logins: 0          
+  Last successful authentication: N/A                   
+  Last failed authentication: 20261102015321Z           
+  Time now: 2026-11-02T02:56:01Z                        
+  Password grace count: 0   
+----------------------------                            
+Number of entries returned 1                            
+----------------------------                            
+[chandler@ipa ~]$ ipa pwpolicy-show                     
+  Group: global_policy      
+  Max lifetime (days): 90   
+  Min lifetime (hours): 1   
+  History size: 0           
+  Character classes: 0      
+  Min length: 8             
+  Max failures: 6           
+  Failure reset interval: 60                            
+  Lockout duration: 600     
+  Grace login limit: -1     
+[chandler@ipa ~]$ sudo cat /etc/ssh/sshd_config.d/04-ipa.conf                                                    
+[sudo] password for chandler:                           
+# IPA-related configuration changes to sshd_config      
+
+PubkeyAuthentication yes    
+KerberosAuthentication no   
+GSSAPIAuthentication yes    
+UsePAM yes                  
+ChallengeResponseAuthentication yes                     
+AuthorizedKeysCommand /usr/bin/sss_ssh_authorizedkeys   
+AuthorizedKeysCommandUser nobody                        
+
+[chandler@ipa ~]$ tmux capture-pane -p -J -S - > ~/ipa-server-install-console.txt                                
+wc -l ~/ipa-server-install-console.txt                  
+526 /home/chandler/ipa-server-install-console.txt       
+[chandler@ipa ~]$ sudo grep -E '^nsslapd-rootpwstoragescheme' /etc/dirsrv/slapd-LAB-TEST/dse.ldif                
+
+read -rs -p "New DM password: " DMPW; echo              
+read -rs -p "Confirm: " DMPW2; echo                     
+if [ "$DMPW" = "$DMPW2" ] && [ -n "$DMPW" ]; then       
+  printf 'dn: cn=config\nchangetype: modify\nreplace: nsslapd-rootpw\nnsslapd-rootpw: %s\n' "$DMPW" \            
+    | sudo ldapmodify -Y EXTERNAL -H ldapi://%2Frun%2Fslapd-LAB-TEST.socket                                      
+else                        
+  echo "MISMATCH or empty, nothing changed"             
+fi                          
+unset DMPW DMPW2            
+[sudo] password for chandler:                           
+New DM password:            
+Confirm:                    
+SASL/EXTERNAL authentication started                    
+SASL username: gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth                                           
+SASL SSF: 0                 
+modifying entry "cn=config" 
+
+[chandler@ipa ~]$ sudo grep -A1 '^nsslapd-rootpw:' /etc/dirsrv/slapd-LAB-TEST/dse.ldif | head -c 40; echo        
+ldapwhoami -x -H ldapi://%2Frun%2Fslapd-LAB-TEST.socket -D "cn=Directory Manager" -W                             
+nsslapd-rootpw: {PBKDF2-SHA512}100000$zp                
+Enter LDAP Password:        
+dn: cn=directory manager    
+[chandler@ipa ~]$ sudo grep -A1 '^nsslapd-rootpw:' /etc/dirsrv/slapd-LAB-TEST/dse.ldif | head -c 40; echo        
+ldapwhoami -x -H ldapi://%2Frun%2Fslapd-LAB-TEST.socket -D "cn=Directory Manager" -W                             
+nsslapd-rootpw: {PBKDF2-SHA512}100000$zp                
+Enter LDAP Password:        
+ldap_bind: Invalid credentials (49)                     
+[chandler@ipa ~]$ sudo grep -A1 '^nsslapd-rootpw:' /etc/dirsrv/slapd-LAB-TEST/dse.ldif | head -c 40; echo        
+nsslapd-rootpw: {PBKDF2-SHA512}100000$zp                
+[chandler@ipa ~]$ ldapwhoami -x -H ldapi://%2Frun%2Fslapd-LAB-TEST.socket -D "cn=Directory Manager" -W           
+Enter LDAP Password:        
+dn: cn=directory manager    
+[chandler@ipa ~]$ tmux capture-pane -p -J -S - > ~/ipa-server-install-console.txt                                
+wc -l ~/ipa-server-install-console.txt                  
+

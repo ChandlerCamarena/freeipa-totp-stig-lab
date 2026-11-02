@@ -1,0 +1,4 @@
+Nov 01 23:27:35 ipa.lab.test ipa-otpd[1685]: mfauser@LAB.TEST: bind end: success
+Nov 01 23:27:35 ipa.lab.test ipa-otpd[1685]: mfauser@LAB.TEST: response sent: Access-Accept
+Nov 01 23:28:07 ipa.lab.test ipa-otpd[1686]: mfauser@LAB.TEST: bind end: Invalid credentials
+Nov 01 23:28:07 ipa.lab.test ipa-otpd[1686]: mfauser@LAB.TEST: response sent: Access-Reject

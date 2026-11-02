@@ -1,0 +1,52 @@
+Script started on 2026-11-01 21:40:34-07:00 [TERM="xterm-kitty" TTY="/dev/pts/0" COLUMNS="113" LINES="61"]
+?2004h[chandler@ipa ~]$ 7mkdestroy -c FILE:/tmp/mfa.ccache 2>/dev/null; kdestroy -c FILE:/tmp/mfa2.ccache 2>/dev/null27mCCCCCCCCCCCCCCCCCCkdestroy -c FILE:/tmp/mfa.ccache 2>/dev/null; kdestroy -c FILE:/tmp/mfa2.ccache 2>/dev/null
+?2004l?2004h[chandler@ipa ~]$ 7mkinit -T FILE:/tmp/armor.ccache -c FILE:/tmp/mfa.ccache mfauser27mCCCCCCCCCCCCCCCCCCkinit -T FILE:/tmp/armor.ccache -c FILE:/tmp/mfa.ccache mfauser
+?2004lEnter OTP Token Value:
+?2004h[chandler@ipa ~]$ 7mklist -C -c FILE:/tmp/mfa.ccache27mCCCCCCCCCCCCCCCCCCklist -C -c FILE:/tmp/mfa.ccache
+?2004lTicket cache: FILE:/tmp/mfa.ccache
+Default principal: mfauser@LAB.TEST
+
+Valid starting	     Expires		  Service principal
+config: fast_avail(krbtgt/LAB.TEST@LAB.TEST) = yes
+config: pa_type(krbtgt/LAB.TEST@LAB.TEST) = 141
+11/01/2026 21:41:00  11/02/2026 21:24:32  krbtgt/LAB.TEST@LAB.TEST
+?2004h[chandler@ipa ~]$ 7mkinit -T FILE:/tmp/armor.ccache -c FILE:/tmp/mfa2.ccache mfauser27mCCCCCCCCCCCCCCCCCCkinit -T FILE:/tmp/armor.ccache -c FILE:/tmp/mfa2.ccache mfauser
+?2004lEnter OTP Token Value:
+?2004h[chandler@ipa ~]$ 7mkinit -T FILE:/tmp/armor.ccache -c FILE:/tmp/mfa2.ccache mfauser27mCCCCCCCCCCCCCCCCCCkinit -T FILE:/tmp/armor.ccache -c FILE:/tmp/mfa2.ccache mfauser
+?2004lEnter OTP Token Value:
+kinit: Preauthentication failed while getting initial credentials
+?2004h[chandler@ipa ~]$ 7mipa user-status mfauser27m
+7msudo journalctl -u 'ipa-otpd@*' --since "21:38" --no-pager | grep -E "bind end|response sent"27m
+7msudo grep mfauser /var/log/krb5kdc.log | grep -E "ISSUE|PREAUTH_FAILED" | tail -n 627m
+7mexit27mAAACCCCCCCCCCCCCCipa user-status mfauser
+sudo journalctl -u 'ipa-otpd@*' --since "21:38" --no-pager | grep -E "bind end|response sent"
+sudo grep mfauser /var/log/krb5kdc.log | grep -E "ISSUE|PREAUTH_FAILED" | tail -n 6
+exit
+?2004l-----------------------
+Account disabled: False
+-----------------------
+  Server: ipa.lab.test
+  Failed logins: 1
+  Last successful authentication: N/A
+  Last failed authentication: 20261102044234Z
+  Time now: 2026-11-02T04:42:40Z
+  Password grace count: 0
+----------------------------
+Number of entries returned 1
+----------------------------
+[sudo] password for chandler:
+Nov 01 21:41:00 ipa.lab.test ipa-otpd[2139]: mfauser@LAB.TEST: 01;31mKbind endmK: success
+Nov 01 21:41:00 ipa.lab.test ipa-otpd[2139]: mfauser@LAB.TEST: 01;31mKresponse sentmK: Access-Accept
+Nov 01 21:42:21 ipa.lab.test ipa-otpd[2142]: mfauser@LAB.TEST: 01;31mKbind endmK: success
+Nov 01 21:42:21 ipa.lab.test ipa-otpd[2142]: mfauser@LAB.TEST: 01;31mKresponse sentmK: Access-Accept
+Nov 01 21:42:34 ipa.lab.test ipa-otpd[2142]: mfauser@LAB.TEST: 01;31mKbind endmK: Invalid credentials
+Nov 01 21:42:34 ipa.lab.test ipa-otpd[2142]: mfauser@LAB.TEST: 01;31mKresponse sentmK: Access-Reject
+Nov 01 21:34:42 ipa.lab.test krb5kdc[1178](info): AS_REQ (2 etypes {aes256-cts-hmac-sha384-192(20), aes128-cts-hmac-sha256-128(19)}) 192.168.122.10: ISSUE: authtime 1793594082, etypes {rep=aes256-cts-hmac-sha384-192(20), tkt=aes256-cts-hmac-sha384-192(20), ses=aes256-cts-hmac-sha384-192(20)}, mfauser@LAB.TEST for krbtgt/LAB.TEST@LAB.TEST
+Nov 01 21:35:11 ipa.lab.test krb5kdc[1177](info): AS_REQ (2 etypes {aes256-cts-hmac-sha384-192(20), aes128-cts-hmac-sha256-128(19)}) 192.168.122.10: ISSUE: authtime 1793594111, etypes {rep=aes256-cts-hmac-sha384-192(20), tkt=aes256-cts-hmac-sha384-192(20), ses=aes256-cts-hmac-sha384-192(20)}, mfauser@LAB.TEST for krbtgt/LAB.TEST@LAB.TEST
+Nov 01 21:35:11 ipa.lab.test krb5kdc[1177](info): TGS_REQ (2 etypes {aes256-cts-hmac-sha384-192(20), aes128-cts-hmac-sha256-128(19)}) 192.168.122.10: ISSUE: authtime 1793594111, etypes {rep=aes256-cts-hmac-sha384-192(20), tkt=aes256-cts-hmac-sha384-192(20), ses=aes256-cts-hmac-sha384-192(20)}, mfauser@LAB.TEST for HTTP/ipa.lab.test@LAB.TEST
+Nov 01 21:41:00 ipa.lab.test krb5kdc[1178](info): AS_REQ (2 etypes {aes256-cts-hmac-sha384-192(20), aes128-cts-hmac-sha256-128(19)}) 192.168.122.10: ISSUE: authtime 1793594460, etypes {rep=aes256-cts-hmac-sha384-192(20), tkt=aes256-cts-hmac-sha384-192(20), ses=aes256-cts-hmac-sha384-192(20)}, mfauser@LAB.TEST for krbtgt/LAB.TEST@LAB.TEST
+Nov 01 21:42:21 ipa.lab.test krb5kdc[1177](info): AS_REQ (2 etypes {aes256-cts-hmac-sha384-192(20), aes128-cts-hmac-sha256-128(19)}) 192.168.122.10: ISSUE: authtime 1793594541, etypes {rep=aes256-cts-hmac-sha384-192(20), tkt=aes256-cts-hmac-sha384-192(20), ses=aes256-cts-hmac-sha384-192(20)}, mfauser@LAB.TEST for krbtgt/LAB.TEST@LAB.TEST
+Nov 01 21:42:34 ipa.lab.test krb5kdc[1177](info): AS_REQ (2 etypes {aes256-cts-hmac-sha384-192(20), aes128-cts-hmac-sha256-128(19)}) 192.168.122.10: PREAUTH_FAILED: mfauser@LAB.TEST for krbtgt/LAB.TEST@LAB.TEST, Preauthentication failed
+exit
+
+Script done on 2026-11-01 21:42:46-07:00 [COMMAND_EXIT_CODE="0"]

@@ -1,0 +1,7 @@
+final-results.xml: score 97.037506 fails 9
+post-ipa-fixed-results.xml: score 93.704170 fails 12
+NEW vs pre-IPA:
+  package_gssproxy_removed
+  package_nfs-utils_removed
+  service_autofs_disabled
+Fixed vs pre-IPA:

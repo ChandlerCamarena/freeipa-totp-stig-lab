@@ -1,0 +1,19 @@
+final (pre-IPA) score 97.037506  fails 9
+post-IPA score       93.001465  fails 14
+NEW failures (passed or n/a before, fail now):
+  package_gssproxy_removed
+  package_nfs-utils_removed
+  service_autofs_disabled
+  sshd_disable_gssapi_auth
+  sssd_offline_cred_expiration
+Fixed since final scan:
+Still failing:
+  accounts_authorized_local_users
+  chronyd_server_directive
+  grub2_admin_username
+  harden_sshd_macs_openssh_conf_crypto_policy
+  harden_sshd_macs_opensshserver_conf_crypto_policy
+  network_configure_name_resolution
+  selinux_context_elevation_for_sudo
+  sssd_enable_certmap
+  sysctl_user_max_user_namespaces_no_remediation
